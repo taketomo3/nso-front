@@ -2,13 +2,29 @@
 lock "~> 3.16.0"
 
 set :application, "nso-front"
-set :repo_url, "git@github.com:taketomo3/nso-front.git"
+set :repo_url, "git@github.com:taketomo3/#{fetch(:application)}.git"
+
+namespace :deploy do
+  desc "Install dependencies"
+  task :install_dependencies do
+    on roles(:web) do
+      execute "npm install"
+    end
+  end
+
+  after :updated, :install_dependencies
+
+  desc "Restart application"
+  task :restart do
+    invoke "pm2:restart"
+  end
+end
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+# set :deploy_to, "/var/www/nso-front"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -33,7 +49,7 @@ set :repo_url, "git@github.com:taketomo3/nso-front.git"
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
