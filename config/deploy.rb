@@ -7,8 +7,10 @@ set :repo_url, "git@github.com:taketomo3/#{fetch(:application)}.git"
 namespace :deploy do
   desc "Install dependencies"
   task :install_dependencies do
-    on roles(:web) do
+    on roles(:app) do
+      execute "cd /srv/nso/front/current"
       execute "npm install"
+      execute "npm build"
     end
   end
 
@@ -16,7 +18,9 @@ namespace :deploy do
 
   desc "Restart application"
   task :restart do
-    invoke "pm2:restart"
+    on roles(:app) do
+      execute "pm2 restart npm --name 'next' -- start"
+    end
   end
 end
 

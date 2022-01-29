@@ -7,7 +7,17 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
+server "nso", user: "takeda", roles: %w{app}
 
+set :branch, :develop
+set :deploy_to, "/srv/nso/front"
+
+set :ssh_options, {
+  port: 22,
+  forward_agent: true,
+  # ssh秘密鍵の場所
+  keys: ['~/.ssh/nso.key']
+}
 
 # role-based syntax
 # ==================
