@@ -8,9 +8,10 @@ namespace :deploy do
   desc "Install dependencies"
   task :install_dependencies do
     on roles(:app) do
-      execute "cd /srv/nso/front/current"
-      execute "npm install"
-      execute "npm build"
+      within release_path do
+        execute :npm, "install"
+        execute :npm, "run", "build"
+      end
     end
   end
 
@@ -19,9 +20,13 @@ namespace :deploy do
   desc "Restart application"
   task :restart do
     on roles(:app) do
-      execute "pm2 restart npm --name 'next' -- start"
+      within current_path do
+        execute "pm2 restart 'npm run dev'"
+      end
     end
   end
+
+  after :finishing, :restart
 end
 
 # Default branch is :master
