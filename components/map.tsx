@@ -9,18 +9,18 @@ const DistanceMap = ({ dist_km }: { dist_km: number }) => {
 
   return (
     <>
-      <MapContainer
+      {/* <MapContainer
         center={[LAT, LNG]}
         zoom={zoom}
         scrollWheelZoom={true}
-        className="w-full bg-base-100 rounded-md shadow-md h-96 lg:h-120"
+        className="w-full rounded-md shadow-md bg-base-100 h-96 lg:h-120"
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Circle center={[LAT, LNG]} radius={dist_km * 1000} />
-      </MapContainer>
+      </MapContainer> */}
     </>
   );
 };
