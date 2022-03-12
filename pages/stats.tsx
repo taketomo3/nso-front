@@ -1,29 +1,55 @@
 import dynamic from "next/dynamic"
 import { useMemo } from "react"
 import { CalendarIcon, ClockIcon, FireIcon, MapIcon } from "@heroicons/react/outline"
+import { useStats } from "../api/useStats"
+import { Loading } from "../components/loading"
+import { StatsModel } from "../api/models/stats"
+import { secToHour } from "../hooks/utils/times"
+
+function loading_message() {
+  return <p>A map is loading</p>
+}
 
 export const Stats = () => {
+  const { data: stats, error, isLoading }: {
+    data: StatsModel,
+    error: string,
+    isLoading: boolean
+  } = useStats()
+
   const Map = useMemo(() =>
     dynamic(() => import("../components/map"), {
+      loading: loading_message,
       ssr: false
     }), []
   )
 
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (error) {
+    return <>{error}</>
+  }
+
+  const { hour } = secToHour(stats.total.times)
+  const distKm = Math.floor(stats.total.distance)
+
   const Stats = [{
     theme: "Distance",
-    value: 100,
+    value: distKm,
     unit: "km",
   }, {
     theme: "Time",
-    value: 10,
+    value: hour,
     unit: `h`,
   }, {
     theme: "Days",
-    value: 20,
+    value: stats.count,
     unit: "days",
   }, {
-    theme: "Goal", // 地球１周
-    value: `${40000 - 100}`,
+    theme: "Goal", // 本州縦断
+    value: `${1400 - distKm}`,
     unit: "km",
   }]
 
@@ -85,7 +111,7 @@ export const Stats = () => {
         ))}
       </div>
       <div className="mt-10">
-        <Map dist_km={100} />
+        <Map dist_km={distKm} />
       </div>
     </>
   )
