@@ -9,7 +9,9 @@
     "fmt": "prettier --write **/*.{js,ts,tsx}"
   },
   "dependencies": {
-    "next": "12.0.7",
+    "@heroicons/react": "^1.0.6",
+    "daisyui": "^2.6.4",
+    "next": "^12.1.0",
     "prettier": "^2.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"

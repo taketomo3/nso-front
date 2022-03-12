@@ -1,10 +1,11 @@
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        '1/7': '14.2857143%',
+      },
+    },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }

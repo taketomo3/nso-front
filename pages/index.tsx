@@ -1,7 +1,16 @@
-import type { NextPage } from 'next'
+import Head from "next/head"
+import Calendar from "../components/calendar"
 
-const Home: NextPage = () => {
-  return <div className="text-red-500">test updated</div>
+const Home = () => {
+  return (
+    <>
+      <Head>
+        <title>No Slacking Off</title>
+      </Head>
+
+      <Calendar />
+    </>
+  )
 }
 
 export default Home
