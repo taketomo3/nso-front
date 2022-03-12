@@ -21,3 +21,8 @@ export const fetchDateElement = (
     day: d.getDay(),
   }
 }
+
+export const strToDate = (strDate: string): Date => {
+  const [y, m, d] = strDate.split('-').map((i) => Number(i))
+  return new Date(y, m - 1, d)
+}

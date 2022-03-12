@@ -1,8 +1,11 @@
+import { RunModel } from "../../api/models/run"
 import fetchAllDates from "../../hooks/fetch_all_dates"
+import { isSameDate, strToDate } from "../../hooks/utils/dates"
 import ADay from "./date"
 
-const Calendar = () => {
-  const dates = fetchAllDates(new Date())
+const Calendar = ({ runs }: { runs: [RunModel] }) => {
+  const beginningDate = strToDate(runs[0].date)
+  const dates = fetchAllDates(beginningDate)
 
   return (
     <>
@@ -21,17 +24,20 @@ const Calendar = () => {
       </div>
 
       <div className="flex flex-wrap max-w-screen-xl mx-auto overflow-y-scroll" style={{ paddingTop: 68 }}>
-        {dates.map((date, index) => (
-          <div
-            key={index}
-            className={
-              "w-1/7 border-b-2 border-r-2" +
-              (date.getDay() === 0 ? " border-l-2" : "")
-            }
-          >
-            <ADay dateProp={date} />
-          </div>
-        ))}
+        {dates.map((date, index) => {
+          const run = runs.find(r => isSameDate(strToDate(r.date), date))
+          return (
+            <div
+              key={index}
+              className={
+                "w-1/7 border-b-2 border-r-2" +
+                (date.getDay() === 0 ? " border-l-2" : "")
+              }
+            >
+              <ADay dateProp={date} run={run} />
+            </div>
+          )
+        })}
       </div>
     </>
   )
