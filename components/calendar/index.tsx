@@ -6,7 +6,7 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="fixed inset-x-0 flex items-center px-4 pt-10 bg-white top-16">
+      <div className="fixed inset-x-0 flex items-center max-w-5xl px-4 pt-10 mx-auto bg-base-100 top-16">
         {Days.map((day, index) => (
           <div
             key={index}
