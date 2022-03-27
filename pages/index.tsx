@@ -11,7 +11,7 @@ const Home = () => {
     isLoading: boolean
   } = useRuns()
 
-  if (isLoading) {
+  if (isLoading || !runs) {
     return <Loading />
   }
 

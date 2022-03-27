@@ -14,15 +14,17 @@ const ADate = ({ dateProp, run }: { dateProp: Date, run: RunModel | undefined })
   }
 
   return (
-    <div className={"h-16 md:h-24 p-2 text-center md:text-left" + (day === 0 ? " text-red-500" : "")}>
-      {date === 1 && <>
-        <span className="pr-1 text-2xl">
-          {month}
+    <div className={"h-16 md:h-24 p-2 text-center md:text-left"}>
+      <span className={day === 0 ? "text-red-500" : ""}>
+        {date === 1 && <>
+          <span className="pr-1 text-2xl">
+            {month}
+          </span>
+          /
+        </>}
+        <span className={isSameDate(dateProp, new Date()) ? "text-primary" : ""}>
+          {date}
         </span>
-        /
-      </>}
-      <span className={isSameDate(dateProp, new Date()) ? "text-primary" : ""}>
-        {date}
       </span>
 
       {/* スマホ用 */}

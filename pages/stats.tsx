@@ -36,20 +36,20 @@ export const Stats = () => {
   const distKm = Math.floor(stats.total.distance)
 
   const Stats = [{
-    theme: "Distance",
+    theme: "走行距離",
     value: distKm,
     unit: "km",
   }, {
-    theme: "Time",
+    theme: "走行時間",
     value: hour,
     unit: `h`,
   }, {
-    theme: "Days",
+    theme: "日数",
     value: stats.count,
     unit: "days",
   }, {
-    theme: "Goal", // 本州縦断
-    value: `${1400 - distKm}`,
+    theme: "沖縄まであと",
+    value: `${1246 - distKm}`,
     unit: "km",
   }]
 
